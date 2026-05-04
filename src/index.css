@@ -1,0 +1,31 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal: #0F6E56;
+  --teal-dark: #085041;
+  --teal-light: #E1F5EE;
+  --teal-mid: #5DCAA5;
+  --navy: #0C447C;
+  --navy-light: #E6F1FB;
+  --text-primary: #111211;
+  --text-secondary: #4a4f4b;
+  --text-muted: #8a8f8b;
+  --border: #e2e6e2;
+  --bg: #f4f6f4;
+  --white: #ffffff;
+  --error: #dc2626;
+  --error-light: #fef2f2;
+  --success: #16a34a;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, button { font-family: inherit; }
+
+.serif { font-family: 'Instrument Serif', serif; }
