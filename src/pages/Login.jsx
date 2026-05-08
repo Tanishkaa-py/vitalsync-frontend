@@ -49,7 +49,7 @@ export default function Login() {
     try {
       const data = await login(email, password);
       // Redirect based on role
-      navigate(data.user.role === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard');
+      navigate(data.data.user.role === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');
     } finally {

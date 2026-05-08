@@ -34,7 +34,7 @@ const s = {
   tlItem: { display: 'flex', gap: 10, marginBottom: 14 },
   tlDot: (color) => ({ width: 9, height: 9, borderRadius: '50%', background: color || '#0F6E56', marginTop: 4, flexShrink: 0 }),
   rxRow: { display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: '1px solid #f0f2f0' },
-  quickActions: { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 },
+  quickActions: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 },
   actionCard: { background: '#fff', border: '1px solid #e2e6e2', borderRadius: 10, padding: '16px', textAlign: 'center', cursor: 'pointer', transition: 'all 0.15s' },
   actionIcon: { fontSize: 24, marginBottom: 8 },
   actionLabel: { fontSize: 12, fontWeight: 500, color: '#111211' },
@@ -89,6 +89,7 @@ export default function PatientDashboard() {
             { icon: '⊞', label: 'Dashboard', path: '/patient/dashboard', active: true },
             { icon: '📅', label: 'Appointments', path: '/appointments' },
             { icon: '💊', label: 'Prescriptions', path: '/prescriptions' },
+            { icon: '🤖', label: 'AI Assistant', path: '/ai' },
           ].map((item) => (
             <button key={item.label} style={s.navItem(item.active)} onClick={() => navigate(item.path)}>
               <span>{item.icon}</span> {item.label}
@@ -141,6 +142,11 @@ export default function PatientDashboard() {
                 <div style={s.actionIcon}>💊</div>
                 <div style={s.actionLabel}>Add Prescription</div>
                 <div style={s.actionSub}>Track your medications</div>
+              </div>
+              <div style={s.actionCard} onClick={() => navigate('/ai')}>
+                 <div style={s.actionIcon}>🤖</div>
+                 <div style={s.actionLabel}>AI Assistant</div>
+                  <div style={s.actionSub}>Ask health-related questions</div>
               </div>
               <div style={s.actionCard} onClick={() => navigate('/upgrade')}>
                 <div style={s.actionIcon}>⭐</div>

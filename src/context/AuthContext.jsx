@@ -18,20 +18,26 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const register = async (name, email, password, role) => {
-    const { data } = await api.post('/api/auth/register', { name, email, password, role });
-    localStorage.setItem('vitalsync_token', data.token);
-    localStorage.setItem('vitalsync_user', JSON.stringify(data.user));
-    setUser(data.user);
-    return data;
-  };
+  const { data } = await api.post('/api/auth/register', { name, email, password, role });
+  // NEW: token is now inside data.data
+  const token = data.data.token;
+  const user = data.data.user;
+  localStorage.setItem('vitalsync_token', token);
+  localStorage.setItem('vitalsync_user', JSON.stringify(user));
+  setUser(user);
+  return data;
+};
 
-  const login = async (email, password) => {
-    const { data } = await api.post('/api/auth/login', { email, password });
-    localStorage.setItem('vitalsync_token', data.token);
-    localStorage.setItem('vitalsync_user', JSON.stringify(data.user));
-    setUser(data.user);
-    return data;
-  };
+const login = async (email, password) => {
+  const { data } = await api.post('/api/auth/login', { email, password });
+  // NEW: token is now inside data.data
+  const token = data.data.token;
+  const user = data.data.user;
+  localStorage.setItem('vitalsync_token', token);
+  localStorage.setItem('vitalsync_user', JSON.stringify(user));
+  setUser(user);
+  return data;
+};
 
   const logout = () => {
     localStorage.removeItem('vitalsync_token');

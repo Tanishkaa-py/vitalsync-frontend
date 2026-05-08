@@ -57,7 +57,7 @@ export default function Register() {
     setLoading(true);
     try {
       const data = await register(form.name, form.email, form.password, form.role);
-      navigate(data.user.role === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard');
+      navigate(data.data.user.role === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
