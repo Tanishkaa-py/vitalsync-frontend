@@ -1,159 +1,377 @@
-# 🏥 VitalSync - React Frontend
+# 🩺 VitalSync: Fullstack Healthcare Management Platform
 
-![React](https://img.shields.io/badge/React_18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)
-![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
-![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel)
+VitalSync is a modern fullstack healthcare dashboard built with the MERN stack. The platform enables patients to manage appointments, prescriptions, healthcare records, AI-assisted wellness queries, and premium healthcare features through a secure and responsive interface.
 
-**Live App:** https://vitalsync-frontend-eight.vercel.app  
-**Backend Repo:** [https://github.com/Tanishkaa-py/vitalsync-backend ](https://github.com/Tanishkaa-py/Week-14-Vital-sync) 
-**Track:** Fullstack | **Intern:** Tanishka Jain | **Week:** 14 — ProDesk Internship
+This project was developed as part of a Fullstack Development milestone project involving:
 
----
-
-## 📋 Project Description
-
-This is the **React frontend** for VitalSync, a healthcare patient dashboard application. It connects to a secure Node.js backend for authentication, stores JWTs in localStorage, and uses React Router to protect dashboard routes — redirecting unauthenticated users back to login automatically.
-
-Built as part of the Week 14 Capstone milestone — the goal was to connect a React app to a real auth backend and implement route protection on the frontend.
+* Protected REST APIs
+* CRUD operations with MongoDB
+* JWT authentication
+* React state management
+* Stripe payment integration
+* AI-powered healthcare assistant using Google Gemini
+* Deployment using Render and Vercel
 
 ---
 
-## 🛠️ Tech Stack
+# 🚀 Live Demo
 
-| Technology | Purpose |
-|---|---|
-| **React 18** | UI component library |
-| **Vite** | Build tool and dev server |
-| **React Router v6** | Client-side routing and navigation |
-| **Axios** | HTTP client for API calls |
-| **Context API** | Global authentication state |
-| **localStorage** | JWT token persistence |
-| **Vercel** | Production deployment |
+[Vital Sync.](https://vitalsync-frontend-eight.vercel.app/login)
 
 ---
 
-## ✨ Features Built
+# ✨ Features
 
-### Milestone 2 — Frontend Connection
-- **Register Form** — Name, email, password, role selection (Doctor/Patient)
-- **Login Form** — Email, password, role selector UI
-- **JWT Storage** — Token saved to localStorage on successful auth
-- **Role-based Redirect** — Doctors go to `/doctor/dashboard`, patients to `/patient/dashboard`
-- **Axios Instance** — Auto-attaches JWT to every request via interceptor
+## 🔐 Authentication & Authorization
 
-### Milestone 3 — Protected Frontend
-- **ProtectedRoute Component** — Checks for JWT before rendering any dashboard
-- **Auto-redirect** — Missing or expired token sends user to `/login` instantly
-- **401 Interceptor** — Axios catches any 401 response, clears token, redirects to login
-- **Logout** — Clears JWT from localStorage and redirects to login
-
-### UI Features
-- Patient Dashboard with stats, appointments, history timeline, prescriptions
-- Doctor Dashboard with schedule, patient queue, availability toggle
-- Live Protected API test button — calls backend and shows real response
-- Fully responsive design with role-specific color themes (teal for patient, navy for doctor)
+* User Registration & Login
+* JWT-based Authentication
+* Protected API Routes
+* Secure Password Hashing using bcrypt
+* Role-based access (Patient / Doctor)
+* Persistent authentication using localStorage
 
 ---
 
-## 🗂️ Project Structure
+# 📅 Appointment Management (Full CRUD)
 
+Patients can:
+
+* Create appointments
+* View appointments
+* Edit appointments
+* Cancel/Delete appointments
+
+### Backend Features
+
+* REST API routes using Express
+* MongoDB data persistence
+* Ownership protection using JWT
+* Users can only modify their own data
+
+### Frontend Features
+
+* Real-time UI updates
+* Optimistic state management
+* No page reloads during CRUD operations
+
+---
+
+# 💊 Prescription Management
+
+Patients can:
+
+* View prescriptions
+* Manage healthcare records
+* Track treatment-related information
+
+---
+
+# 🤖 AI Health Assistant
+
+Integrated with Google Gemini AI.
+
+### Features
+
+* Ask general health-related questions
+* Medication guidance
+* Wellness suggestions
+* Appointment preparation tips
+* Symptom-related educational assistance
+
+### Safety Features
+
+* Does not diagnose diseases
+* Does not prescribe medication
+* Encourages professional medical consultation
+* Context-aware prompts for safer healthcare responses
+
+### Tech Used
+
+* Google Gemini API
+* Backend-secured AI requests
+* Rate limiting for AI endpoints
+
+---
+
+# 💳 Stripe Payment Gateway Integration
+
+Integrated Stripe Checkout in Test Mode.
+
+### Features
+
+* Upgrade to VitalSync Pro
+* Secure Stripe Checkout Session
+* Payment Success & Cancel Pages
+* Backend-generated Stripe sessions
+* Test card support
+
+### Test Card
+
+```txt
+4242 4242 4242 4242
 ```
-vitalsync-frontend/
-├── index.html
-├── vite.config.js
-├── package.json
-├── .env.example
-└── src/
-    ├── main.jsx                    # React DOM entry point
-    ├── App.jsx                     # Router + route definitions
-    ├── index.css                   # Global styles + CSS variables
-    ├── context/
-    │   └── AuthContext.jsx         # Global auth state (login/register/logout)
-    ├── components/
-    │   └── ProtectedRoute.jsx      # JWT guard for protected pages
-    ├── utils/
-    │   └── api.js                  # Axios instance with interceptors
-    └── pages/
-        ├── Login.jsx               # Login page with role selector
-        ├── Register.jsx            # Registration page
-        ├── PatientDashboard.jsx    # Patient dashboard UI
-        └── DoctorDashboard.jsx     # Doctor dashboard UI
-```
+
+Use:
+
+* Any future expiry date
+* Any CVV
+* Any ZIP code
 
 ---
 
-## 🔄 Auth Flow
+# 🛡️ Security Features
 
-```
-User submits Register/Login form
-          ↓
-Axios POST to backend /api/auth/register or /api/auth/login
-          ↓
-Backend returns { token, user }
-          ↓
-Token saved to localStorage as 'vitalsync_token'
-User saved to localStorage as 'vitalsync_user'
-          ↓
-React Router redirects based on role:
-  doctor → /doctor/dashboard
-  patient → /patient/dashboard
-          ↓
-Every subsequent API call has:
-  Authorization: Bearer <token>  (added by Axios interceptor)
-          ↓
-If token missing → ProtectedRoute redirects to /login
-If token expired → Axios 401 interceptor redirects to /login
-```
+* JWT Authentication
+* Password hashing with bcrypt
+* Protected backend routes
+* Ownership validation
+* Rate limiting middleware
+* Environment variable protection
+* AI endpoint throttling
 
 ---
 
-## 🚀 Local Setup
+# ⚡ Optimistic UI Updates
+
+VitalSync uses React state management to instantly reflect changes in the UI while backend API requests run asynchronously.
+
+Examples:
+
+* Appointment creation appears instantly
+* Edited data updates immediately
+* Deleted items disappear without reload
+
+---
+
+# 🗄️ Database
+
+MongoDB Atlas is used for cloud database storage.
+
+### Collections
+
+* Users
+* Appointments
+* Prescriptions
+* Payments
+
+---
+
+# 🧱 Tech Stack
+
+## Frontend
+
+* React.js
+* React Router DOM
+* Axios
+* Context API
+* Vite
+
+## Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT
+* bcryptjs
+* express-rate-limit
+
+## AI
+
+* Google Gemini API
+* @google/generative-ai
+
+## Payment
+
+* Stripe Checkout
+
+## Deployment
+
+* Vercel (Frontend)
+* Render (Backend)
+* MongoDB Atlas (Database)
+
+---
+
+# 📂 Project Structure
+
+## Frontend
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/Tanishkaa-py/vitalsync-frontend.git
-cd vitalsync-frontend
-
-# 2. Install dependencies
-npm install
-
-# 3. Create .env file
-VITE_API_URL=http://localhost:5000
-
-# 4. Run development server
-npm run dev
-
-# Open http://localhost:5173
+frontend/
+├── src/
+│   ├── components/
+│   ├── context/
+│   ├── pages/
+│   ├── services/
+│   ├── App.jsx
+│   └── main.jsx
 ```
 
-> Make sure the backend is running on port 5000 before testing auth.
+## Backend
+
+```bash
+backend/
+├── src/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── validators/
+│   ├── utils/
+│   └── index.js
+```
 
 ---
 
-## ☁️ Deployment
+# 🔌 API Endpoints
 
-**Deployed on Vercel:**
-- Framework: Vite (auto-detected)
-- Environment Variable: `VITE_API_URL=https://week-14-vital-sync.onrender.com`
+## Auth Routes
 
-**Live URL:** https://vitalsync-frontend-eight.vercel.app
+```http
+POST /api/auth/register
+POST /api/auth/login
+GET  /api/auth/me
+```
+
+## Appointment Routes
+
+```http
+GET    /api/appointments
+POST   /api/appointments
+PUT    /api/appointments/:id
+DELETE /api/appointments/:id
+```
+
+## Prescription Routes
+
+```http
+GET /api/prescriptions
+```
+
+## Payment Routes
+
+```http
+POST /api/payments/create-checkout-session
+```
+
+## AI Routes
+
+```http
+POST /api/ai/suggest
+```
 
 ---
 
-## 🎨 Design System
+# ⚙️ Environment Variables
 
-| Token | Value | Usage |
-|---|---|---|
-| `--teal` | `#0F6E56` | Patient portal primary |
-| `--teal-light` | `#E1F5EE` | Patient portal surfaces |
-| `--navy` | `#0C447C` | Doctor portal primary |
-| `--navy-light` | `#E6F1FB` | Doctor portal surfaces |
-| Font | DM Sans | All UI text |
+## Backend `.env`
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+STRIPE_SECRET_KEY=your_stripe_secret_key
+CLIENT_URL=your_frontend_url
+GEMINI_API_KEY=your_gemini_api_key
+```
 
 ---
 
-<div align="center">
-Built as part of the <strong>ProDesk Internship Capstone — Week 14</strong>
-</div>
+# 🖥️ Local Setup
+
+## Clone Repository
+
+```bash
+git clone <repository-url>
+```
+
+---
+
+## Backend Setup
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+---
+
+## Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+# 🌐 Deployment
+
+## Frontend Deployment
+
+* Vercel
+
+## Backend Deployment
+
+* Render
+
+## Database
+
+* MongoDB Atlas
+
+---
+
+# 🎯 Key Learning Outcomes
+
+This project demonstrates:
+
+* Fullstack MERN development
+* REST API architecture
+* Authentication & authorization
+* Secure backend development
+* MongoDB integration
+* React state management
+* Payment gateway integration
+* AI API integration
+* Deployment workflows
+* Environment variable management
+* Production debugging
+
+---
+
+# 📸 Core Modules
+
+✅ Authentication System
+
+✅ Patient Dashboard
+
+✅ Appointment CRUD System
+
+✅ Prescription Tracking
+
+✅ Stripe Payment Integration
+
+✅ AI Healthcare Assistant
+
+✅ MongoDB Integration
+
+✅ Protected Routes
+
+✅ Responsive UI
+
+---
+
+# 👩‍💻 Author
+
+Tanishka Jain
+
+Fullstack Developer | MERN Stack Enthusiast
+
+---
+
+# 📄 License
+
+This project is developed for educational and portfolio purposes.
